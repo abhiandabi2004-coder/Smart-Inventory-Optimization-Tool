@@ -7,21 +7,35 @@ from abc_analysis import abc_analysis
 from reorder_system import reorder_calculation
 from forecasting import demand_forecast
 
-st.title("Smart Inventory Optimization Tool")
+st.set_page_config(page_title="Smart Inventory Optimization Tool", layout="wide")
 
-df = pd.read_csv("data/inventory.csv")
+st.title("📦 Smart Inventory Optimization Tool")
 
-# Process data
+st.write("Upload your inventory CSV file to analyze stock performance.")
+
+# Upload file
+uploaded_file = st.file_uploader("Upload Inventory File", type=["csv"])
+
+if uploaded_file is None:
+    st.warning("Please upload a CSV file to continue.")
+    st.stop()
+
+# Read dataset
+df = pd.read_csv(uploaded_file)
+
+st.subheader("Uploaded Data")
+st.dataframe(df)
+
+# Run analytics
 df = calculate_inventory_metrics(df)
 df = abc_analysis(df)
 df = reorder_calculation(df)
 df = demand_forecast(df)
 
-st.sidebar.title("Navigation")
-
+# Navigation
 page = st.sidebar.selectbox(
     "Select Module",
-    ["Dashboard","Inventory Table","Reorder Suggestions","ABC Analysis","Forecast"]
+    ["Dashboard","Inventory Table","Reorder Suggestions","ABC Analysis","Demand Forecast"]
 )
 
 # DASHBOARD
@@ -48,7 +62,7 @@ elif page == "Inventory Table":
 
     st.dataframe(df)
 
-# REORDER MODULE
+# REORDER
 elif page == "Reorder Suggestions":
 
     st.header("Reorder Recommendations")
@@ -69,18 +83,18 @@ elif page == "ABC Analysis":
 
     st.dataframe(df[["Product","Sales_Value","ABC_Category"]])
 
-    abc_counts = df["ABC_Category"].value_counts()
-
     fig, ax = plt.subplots()
+
+    abc_counts = df["ABC_Category"].value_counts()
 
     ax.pie(abc_counts, labels=abc_counts.index, autopct="%1.1f%%")
 
     st.pyplot(fig)
 
 # FORECAST
-elif page == "Forecast":
+elif page == "Demand Forecast":
 
-    st.header("Demand Forecast")
+    st.header("Next Month Demand Forecast")
 
     st.dataframe(df[["Product","Forecast_Next_Month"]])
 
@@ -90,5 +104,7 @@ elif page == "Forecast":
 
     ax.set_xlabel("Product")
     ax.set_ylabel("Forecast Demand")
+
+    plt.xticks(rotation=45)
 
     st.pyplot(fig)
