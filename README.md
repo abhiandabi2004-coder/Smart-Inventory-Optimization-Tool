@@ -1,2 +1,20 @@
 # Smart-Inventory-Optimization-Tool
-A tool that predicts inventory shortage and dead stock risk.
+A Streamlit application that analyzes retail inventory and provides insights like:
+
+- Reorder alerts
+- Overstock detection
+- ABC analysis
+- Sales value visualization
+
+## Features
+
+✔ Upload inventory dataset  
+✔ Detect stock shortages  
+✔ Identify overstock products  
+✔ ABC product classification  
+✔ Interactive dashboard
+
+## Installation
+
+```bash
+pip install -r requirements.txt
