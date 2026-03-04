@@ -1,0 +1,11 @@
+Product,Current_Stock,Sales_Last_30_Days,Purchase_Cost,Selling_Price,Lead_Time
+Rice,20,200,40,50,5
+Oil,100,80,90,110,6
+Pickles,150,10,60,80,4
+Sugar,50,120,35,45,3
+Salt,200,40,10,15,7
+Wheat Flour,60,90,30,40,5
+Tea Powder,40,70,120,150,6
+Coffee Powder,30,55,200,250,6
+Biscuits,120,110,8,12,4
+Soap,80,65,20,30,3
